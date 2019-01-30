@@ -12,7 +12,7 @@
 		<tycho-version>1.3.0</tycho-version>
 		<root-dir>${basedir}/..</root-dir>
 		<JENKINS_URL>http://services.typefox.io/open-source/jenkins</JENKINS_URL>
-		<upstreamBranch>master</upstreamBranch>
+		<upstreamBranch>kth_issue1309_cbi</upstreamBranch>
 	</properties>
 
 	<repositories>
