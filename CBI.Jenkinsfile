@@ -5,7 +5,8 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr:'15'))
   }
 
-  tools { 
+  tools {
+    // see https://wiki.eclipse.org/Jenkins#Jenkins_configuration_and_tools_.28clustered_infra.29
     maven 'apache-maven-latest'
     jdk 'oracle-jdk8-latest'
   }
@@ -72,7 +73,7 @@ pipeline {
           color = '#FF0000'
         }
         
-        // slackSend message: "${curResult}: <${env.BUILD_URL}|${env.JOB_NAME}#${env.BUILD_NUMBER}${envName}>", baseUrl: 'https://itemis.slack.com/services/hooks/jenkins-ci/', botUser: true, channel: 'xtext-builds', color: '#00FFFF', token: '1vbkhv8Hwlp3ausuFGj1BdJb'
+        slackSend message: "${curResult}: <${env.BUILD_URL}|${env.JOB_NAME}#${env.BUILD_NUMBER}${envName}>", botUser: true, channel: 'xtext-builds', color: "${color}"
       }
     }
   }
