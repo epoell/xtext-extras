@@ -95,29 +95,28 @@ class JavaSourceLanguagePerformanceTest {
 	}
 	
 	def protected resourceSet(Pair<String, String> ... files) {
-        val result = resourceSetProvider.get
-        typeProviderFactory.createTypeProvider(result)
-        result.classpathURIContext = class.classLoader
-        result.URIConverter.URIHandlers.clear
-        val uriHandler = new InMemoryURIHandler
-        val uris = files.map [
-            val uri = URI.createURI(InMemoryURIHandler.SCHEME + ":/" + key)
-            val out = uriHandler.createOutputStream(uri, emptyMap)
-            out.write(value.bytes)
-            out.close
-            return uri
-        ]
-        result.URIConverter.URIHandlers.add(uriHandler)
-        val descriptions = newArrayList()
-        for (uri : uris) {
-            val resource = result.getResource(uri, true)
-            descriptions += resourceDesriptionManager.getResourceDescription(resource);
-        }
-        val chunkedResourceDescriptions = new ChunkedResourceDescriptions(#{
-            'default' -> new ResourceDescriptionsData(descriptions)
-        })
-        (chunkedResourceDescriptions).attachToEmfObject(result)
-        return result
-    }
-	
+		val result = resourceSetProvider.get
+		typeProviderFactory.createTypeProvider(result)
+		result.classpathURIContext = class.classLoader
+		result.URIConverter.URIHandlers.clear
+		val uriHandler = new InMemoryURIHandler
+		val uris = files.map [
+			val uri = URI.createURI(InMemoryURIHandler.SCHEME + ":/" + key)
+			val out = uriHandler.createOutputStream(uri, emptyMap)
+			out.write(value.bytes)
+			out.close
+			return uri
+		]
+		result.URIConverter.URIHandlers.add(uriHandler)
+		val descriptions = newArrayList()
+		for (uri : uris) {
+			val resource = result.getResource(uri, true)
+			descriptions += resourceDesriptionManager.getResourceDescription(resource);
+		}
+		val chunkedResourceDescriptions = new ChunkedResourceDescriptions(#{
+			'default' -> new ResourceDescriptionsData(descriptions)
+		})
+		(chunkedResourceDescriptions).attachToEmfObject(result)
+		return result
+	}
 }
